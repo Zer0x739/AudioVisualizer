@@ -87,10 +87,10 @@
         const yEnd = centerY + Math.sin(angle) * (radius + barHeight);
 
         const baseHue = i / bufferLength * 360;
-        const gradientPosition = i / (bufferLength / 1.99); // 0 to 1
+        const gradientPosition = i / (bufferLength / 1.99);
 
-        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`; // Base color
-        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; // Shifted hue for gradient
+        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`;
+        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; 
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(xEnd, yEnd);
@@ -106,10 +106,10 @@
         const yEnd = centerY + Math.sin(angle) * (radius + barHeight);
 
         const baseHue = i / bufferLength * 360;
-        const gradientPosition = i / (bufferLength / 1.99); // 0 to 1
+        const gradientPosition = i / (bufferLength / 1.99);
 
-        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`; // Base color
-        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; // Shifted hue for gradient
+        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`;
+        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; 
         ctx.beginPath();
         ctx.moveTo(x, y);
         ctx.lineTo(xEnd, yEnd);
