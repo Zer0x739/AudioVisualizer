@@ -14,14 +14,14 @@ Tento projekt je jednoduchý vizualizér zvuku vytvořený pomocí HTML, CSS a J
 
 ## Použití
 1. Klonujte úložiště do místního počítače.
-2. Otevřete soubor index.html ve webovém prohlížeči.
+2. Otevřete soubor index.html pomocí live serveru ve webovém prohlížeči.
 3. Kliknutím na oblast plátna spusťte přehrávání výchozího zvukového souboru nebo nahrajte vlastní zvukový soubor pomocí vstupního souboru.
 4. Vychutnejte si vizuální zobrazení zvukových frekvencí.
 5. Klepnutím kamkoli na obrazovku pozastavíte nebo obnovíte přehrávání zvuku.
 6. Pomocí ovládacích prvků zvuku v levém horním rohu můžete nastavit hlasitost a přetáčet ve zvukové stopě.
 
-## Credits
-Tento projekt vytvořil Patrik Lengauer a je šířen pod licencí MIT.
+## Autor
+Patrik Lengauer
 
 ## Licence
 Tento projekt je licencován pod licencí MIT.
