@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id='container'>
+        <canvas id="canvas1"></canvas>
+        <audio id="audio1" controls ></audio>
+        <input type='file' id='fileupload' accept='audio/*' />
+    </div>
+    <script>
+        const container = document.getElementById('container');
+        const canvas = document.getElementById('canvas1');
+        const file = document.getElementById('fileupload');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const ctx = canvas.getContext('2d');
+        
+        let audio1 = document.getElementById('audio1');
+        audio1.src = "audio.mp3";
+
+        let audioSource;
+        let analyser;
+        let rotationAngle = 0;
+        
+        container.addEventListener('click', function(){
+            audio1.volume = 0.3;
+            const audioContext = new AudioContext();
+            audio1.play();
+            audioSource = audioContext.createMediaElementSource(audio1);
+            analyser = audioContext.createAnalyser();
+            audioSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function animate(){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                analyser.getByteFrequencyData(dataArray);
+                drawVisualiser(bufferLength, dataArray);
+                requestAnimationFrame(animate);
+            }
+            animate();
+        });
+
+        file.addEventListener('change', function(){
+            const files = this.files;
+            audio1.src = URL.createObjectURL(files[0]);
+            audio1.load();
+            audio1.play();
+
+            const audioContext = new AudioContext();
+            audioSource = audioContext.createMediaElementSource(audio1);
+            analyser = audioContext.createAnalyser();
+            audioSource.connect(analyser);
+            analyser.connect(audioContext.destination);
+            analyser.fftSize = 256;
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+
+            function animate(){
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                analyser.getByteFrequencyData(dataArray);
+                drawVisualiser(bufferLength, dataArray);
+                requestAnimationFrame(animate);
+            }
+            animate();
+        });
+
+    function drawVisualiser(bufferLength, dataArray) {
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2 + 80;
+        const radius = Math.min(centerX, centerY) * 0.1; 
+        const sliceAngle = Math.PI * 2 / bufferLength;
+
+    for (let i = 0; i < bufferLength / 1.99; i++) {
+        const barHeight = dataArray[i] * 2;
+        const angle = sliceAngle * i - Math.PI / 2;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        const xEnd = centerX + Math.cos(angle) * (radius + barHeight);
+        const yEnd = centerY + Math.sin(angle) * (radius + barHeight);
+
+        const baseHue = i / bufferLength * 360;
+        const gradientPosition = i / (bufferLength / 1.99); // 0 to 1
+
+        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`; // Base color
+        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; // Shifted hue for gradient
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(xEnd, yEnd);
+        ctx.stroke();
+    }
+
+    for (let i = 0; i < bufferLength / 1.99; i++) {
+        const barHeight = dataArray[i] * 2;
+        const angle = sliceAngle * (bufferLength - i) - Math.PI / 2;
+        const x = centerX + Math.cos(angle) * radius;
+        const y = centerY + Math.sin(angle) * radius;
+        const xEnd = centerX + Math.cos(angle) * (radius + barHeight);
+        const yEnd = centerY + Math.sin(angle) * (radius + barHeight);
+
+        const baseHue = i / bufferLength * 360;
+        const gradientPosition = i / (bufferLength / 1.99); // 0 to 1
+
+        ctx.strokeStyle = `hsl(${baseHue}, 100%, 50%)`; // Base color
+        ctx.strokeStyle = `hsl(${baseHue + gradientPosition * 180}, 100%, 50%)`; // Shifted hue for gradient
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(xEnd, yEnd);
+        ctx.stroke();
+    }
+
+}
+let isPlaying = false;
+
+document.addEventListener('click', function(){
+    if (isPlaying) {
+        audio1.pause();
+    } else {
+        audio1.play();
+    }
+    isPlaying = !isPlaying;
+});
+
+    </script>
+</body>
+</html>
