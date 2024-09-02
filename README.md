@@ -2,7 +2,7 @@
 
 Tento projekt je jednoduchý vizualizér zvuku vytvořený pomocí HTML, CSS a JavaScriptu. Využívá rozhraní Web Audio API k analýze zvukového vstupu a vykreslování vizualizací na prvek plátna HTML5.
 
-![screenshot](https://media.discordapp.net/attachments/503505816498995222/1224015472622702674/image.png?ex=661bf43d&is=66097f3d&hm=1f1088879edeb13cd769209c2699c3fa338e274286b91678aefb1a1da9c5f3d0&=&format=webp&quality=lossless&width=1193&height=671)
+![screenshot](https://github.com/Zer0x739/AudioVisualizer/blob/main/Showcase.png)
 
 ## Funkce:
 
